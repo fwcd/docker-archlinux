@@ -38,9 +38,6 @@ sed -i "s| \(/etc/pacman.d\)| $newroot\1|" "$tmpconf"
 info "Setting up cleanup trap..."
 trap "rm '$newroot/dev/null' '$tmpconf'" EXIT
 
-info "Setting up keyring..."
-
-
 info "Installing packages at $newroot..."
 if ! pacman -r "$newroot" --config "$tmpconf" -Sy --noconfirm "${pacman_args[@]}"; then
   die 'Failed to install packages into new root'
