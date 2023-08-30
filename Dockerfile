@@ -1,6 +1,7 @@
-ARG BOOTSTRAPIMAGE=ghcr.io/fwcd/docker-archlinux
+FROM ghcr.io/fwcd/archlinuxarm-docker AS bootstrap-base-arm64
+FROM archlinux AS bootstrap-base-amd64
 
-FROM $BOOTSTRAPIMAGE AS bootstrap
+FROM bootstrap-base-${TARGETARCH} AS bootstrap
 
 ARG TARGETARCH
 ARG TARGETVARIANT
