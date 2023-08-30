@@ -41,4 +41,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7 # TODO: 32-bit x86 (linux/386)
           push: true # TODO: Only push on main
-          tags: ghcr.io/fwcd/docker-archlinux:latest,ghcr.io/fwcd/docker-archlinux:${{ steps.date.outputs.DATE }}
+          tags: ghcr.io/fwcd/archlinux:latest,ghcr.io/fwcd/archlinux:${{ steps.date.outputs.DATE }}
