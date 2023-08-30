@@ -2,7 +2,7 @@ FROM ghcr.io/fwcd/archlinuxarm-docker AS bootstrap-base-arm64
 FROM ghcr.io/fwcd/archlinuxarm-docker AS bootstrap-base-armv7
 FROM archlinux AS bootstrap-base-amd64
 
-FROM bootstrap-base-${TARGETARCH} AS bootstrap
+FROM bootstrap-base-${TARGETARCH}${TARGETVARIANT} AS bootstrap
 
 ARG TARGETARCH
 ARG TARGETVARIANT
