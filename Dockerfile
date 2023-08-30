@@ -1,4 +1,4 @@
-ARG BOOTSTRAPIMAGE
+ARG BOOTSTRAPIMAGE=ghcr.io/fwcd/docker-archlinux
 
 FROM $BOOTSTRAPIMAGE AS bootstrap
 
