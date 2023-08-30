@@ -39,6 +39,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          platforms: linux/amd64,linux/arm64 # TODO: 32-bit (linux/arm/v7 and linux/386)
+          platforms: linux/amd64,linux/arm64,linux/arm/v7 # TODO: 32-bit x86 (linux/386)
           push: true # TODO: Only push on main
           tags: ghcr.io/fwcd/docker-archlinux:latest,ghcr.io/fwcd/docker-archlinux:${{ steps.date.outputs.DATE }}

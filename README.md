@@ -8,3 +8,4 @@ Unofficial, automated Docker multi-platform images of Arch Linux for the followi
 | ------------ | --------------- | ------------ |
 | x86_64 | `linux/amd64` | [Arch Linux](https://archlinux.org) |
 | aarch64 | `linux/arm64` | [Arch Linux ARM](https://archlinuxarm.org) |
+| armv7 | `linux/arm/v7` | [Arch Linux ARM](https://archlinuxarm.org) |
