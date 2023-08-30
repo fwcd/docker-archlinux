@@ -11,8 +11,11 @@ COPY /bootstrap/${TARGETARCH}${TARGETVARIANT} /
 COPY /rootfs/any /rootfs
 COPY /rootfs/${TARGETARCH}${TARGETVARIANT} /rootfs
 
-# Install pacman
-RUN apk add pacman
+# Set up pacman
+RUN apk add pacman && \
+    cp -r /rootfs/etc/pacman.d /etc/ && \
+    cp /rootfs/etc/pacman.conf /etc/pacman.conf && \
+    sed -i 's/\(SigLevel\s\+=\s\+\).\+/\1Never/g' /etc/pacman.conf
 
 # Install the base packages
 RUN cat /etc/bootstrap-packages.txt | xargs pacstrap-docker /rootfs
