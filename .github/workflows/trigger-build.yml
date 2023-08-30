@@ -1,0 +1,25 @@
+name: Trigger Build
+
+on:
+  # Run every day at 07:20 (to avoid the peak times)
+  schedule:
+  - cron: '20 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  trigger-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configure Git user
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+    - name: Create dummy commit
+      run: git commit --allow-empty -m "Trigger build ($(date -I))"
+    - name: Push
+      run: git push
