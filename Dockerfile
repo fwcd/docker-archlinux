@@ -1,18 +1,20 @@
-# TODO: We'd want to use $BUILDPLATFORM, perhaps with our own image eventually
-FROM --platform=linux/amd64 docker.io/archlinux AS bootstrap
+ARG BOOTSTRAPIMAGE
+
+FROM $BOOTSTRAPIMAGE AS bootstrap
 
 ARG TARGETARCH
-ARG TARGETARCH
+ARG TARGETVARIANT
 
-WORKDIR /rootfs
+# Set up the bootstrap tree
+COPY /bootstrap/any /
+COPY /bootstrap/${TARGETARCH}${TARGETVARIANT} /
 
-# Copy the overlay files into the new rootfs
+# Set up the initial rootfs tree
 COPY /rootfs/any /rootfs
 COPY /rootfs/${TARGETARCH}${TARGETVARIANT} /rootfs
 
 # Install the base packages
-COPY pacstrap-docker /usr/local/bin
-RUN pacstrap-docker /rootfs base base-devel
+RUN cat /etc/bootstrap-packages.txt | xargs pacstrap-docker /rootfs
 
 # Remove the current pacman database (usually outdated very soon anyway)
 RUN rm /rootfs/var/lib/pacman/sync/*
