@@ -29,16 +29,9 @@ mkdir -m 0555 -p "$newroot"/{sys,proc}
 
 info "Setting up /dev/null in new root..."
 mknod "$newroot/dev/null" c 1 3
-
-info "Set up a temporary config with patched paths for bootstrapping..."
-tmpconf="/tmp/pacstrap-docker-pacman.conf"
-cp "$newroot/etc/pacman.conf" "$tmpconf"
-sed -i "s| \(/etc/pacman.d\)| $newroot\1|" "$tmpconf"
-
-info "Setting up cleanup trap..."
-trap "rm '$newroot/dev/null' '$tmpconf'" EXIT
+trap "rm '$newroot/dev/null'" EXIT
 
 info "Installing packages at $newroot..."
-if ! pacman -r "$newroot" --config "$tmpconf" -Sy --noconfirm "${pacman_args[@]}"; then
+if ! pacman -r "$newroot" -Sy --noconfirm "${pacman_args[@]}"; then
   die 'Failed to install packages into new root'
 fi
