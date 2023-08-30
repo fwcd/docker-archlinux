@@ -1,8 +1,4 @@
-FROM ghcr.io/fwcd/docker-archlinux AS bootstrap-base-arm64
-FROM ghcr.io/fwcd/docker-archlinux AS bootstrap-base-armv7
-FROM ghcr.io/fwcd/docker-archlinux AS bootstrap-base-amd64
-
-FROM bootstrap-base-${TARGETARCH}${TARGETVARIANT} AS bootstrap
+FROM alpine AS bootstrap
 
 ARG TARGETARCH
 ARG TARGETVARIANT
@@ -14,6 +10,12 @@ COPY /bootstrap/${TARGETARCH}${TARGETVARIANT} /
 # Set up the initial rootfs tree
 COPY /rootfs/any /rootfs
 COPY /rootfs/${TARGETARCH}${TARGETVARIANT} /rootfs
+
+# Set up pacman
+RUN apk add pacman && \
+    cp -r /rootfs/etc/pacman.d /etc/ && \
+    cp /rootfs/etc/pacman.conf /etc/pacman.conf && \
+    sed -i 's/\(SigLevel\s\+=\s\+\).\+/\1Never/g' /etc/pacman.conf
 
 # Install the base packages
 RUN cat /etc/bootstrap-packages.txt | xargs pacstrap-docker /rootfs

@@ -32,13 +32,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Fetch date
-        id: date
-        run: echo "DATE=$(date '+%Y%m%d')" >> "$GITHUB_OUTPUT"
-      - name: Build and push image
+      - name: Compute tags
+        id: tags
+        run: |
+          echo "DATE=$(date '+%Y%m%d')" >> "$GITHUB_OUTPUT"
+          echo "NAME=ghcr.io/fwcd/archlinux" >> "$GITHUB_OUTPUT"
+      - name: Build image
         uses: docker/build-push-action@v4
         with:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7 # TODO: 32-bit x86 (linux/386)
-          push: true # TODO: Only push on main
-          tags: ghcr.io/fwcd/archlinux:latest,ghcr.io/fwcd/archlinux:${{ steps.date.outputs.DATE }}
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ steps.tags.outputs.NAME }}:latest,${{ steps.tags.outputs.NAME }}:${{ steps.tags.outputs.DATE }}
