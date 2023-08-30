@@ -37,7 +37,7 @@ jobs:
         run: |
           echo "DATE=$(date '+%Y%m%d')" >> "$GITHUB_OUTPUT"
           echo "NAME=ghcr.io/fwcd/archlinux" >> "$GITHUB_OUTPUT"
-      - name: Build image
+      - name: Build and push image
         uses: docker/build-push-action@v4
         with:
           context: .
