@@ -1,4 +1,4 @@
-FROM alpine AS bootstrap
+FROM alpine:edge AS bootstrap
 
 ARG TARGETARCH
 ARG TARGETVARIANT
