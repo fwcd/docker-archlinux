@@ -20,6 +20,9 @@ RUN apk add pacman && \
 # Install the base packages
 RUN cat /etc/bootstrap-packages.txt | xargs pacstrap-docker /rootfs
 
+# Fix marginal trust errors on Arch Linux ARM
+RUN sed -i 's/^\(GPG_PACMAN=(.*\))/\1 --allow-weak-key-signatures)/g' /rootfs/usr/bin/pacman-key
+
 # Remove the current pacman database (usually outdated very soon anyway)
 RUN rm /rootfs/var/lib/pacman/sync/*
 
