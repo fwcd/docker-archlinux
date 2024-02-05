@@ -1,1 +1,2 @@
 base
+archlinux32-keyring
