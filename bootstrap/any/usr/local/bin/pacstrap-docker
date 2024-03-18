@@ -32,6 +32,6 @@ mknod "$newroot/dev/null" c 1 3
 trap "rm '$newroot/dev/null'" EXIT
 
 info "Installing packages at $newroot..."
-if ! pacman --debug -r "$newroot" -Sy --noconfirm "${pacman_args[@]}"; then
+if ! pacman -r "$newroot" -Sy --noconfirm "${pacman_args[@]}"; then
   die 'Failed to install packages into new root'
 fi

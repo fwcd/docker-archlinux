@@ -1,4 +1,4 @@
-FROM alpine:edge AS bootstrap
+FROM ghcr.io/fwcd/archlinux:latest AS bootstrap
 
 ARG TARGETARCH
 ARG TARGETVARIANT
@@ -10,12 +10,6 @@ COPY /bootstrap/${TARGETARCH}${TARGETVARIANT} /
 # Set up the initial rootfs tree
 COPY /rootfs/any /rootfs
 COPY /rootfs/${TARGETARCH}${TARGETVARIANT} /rootfs
-
-# Set up pacman
-RUN apk add pacman && \
-    cp -r /rootfs/etc/pacman.d /etc/ && \
-    cp /rootfs/etc/pacman.conf /etc/pacman.conf && \
-    sed -i 's/\(SigLevel\s\+=\s\+\).\+/\1Never/g' /etc/pacman.conf
 
 # Install the base packages
 RUN cat /etc/bootstrap-packages.txt | xargs pacstrap-docker /rootfs
