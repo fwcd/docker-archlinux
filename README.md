@@ -21,5 +21,3 @@ docker pull ghcr.io/fwcd/archlinux
 ```
 
 If you have QEMU installed, you can also pass `--platform <someplatform>` (e.g. `linux/arm64`) to fetch the image for a specific architecture.
-
-[^1]: The pentium4 architecture is for 32-bit CPUs that support SSE2 and the only one we support (for now). See [here](https://archlinux32.org/architecture) for a comparison of architectures supported by upstream.
