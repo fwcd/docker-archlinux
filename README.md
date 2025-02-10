@@ -9,7 +9,6 @@ Unofficial, automated Docker multi-platform images of Arch Linux for the followi
 | x86_64 | `linux/amd64` | [Arch Linux](https://archlinux.org) |
 | aarch64 | `linux/arm64` | [Arch Linux ARM](https://archlinuxarm.org) |
 | armv7h | `linux/arm/v7` | [Arch Linux ARM](https://archlinuxarm.org) |
-| pentium4[^1] | `linux/386` | [Arch Linux 32](https://archlinux32.org) |
 | riscv64 | `linux/riscv64` | [Arch Linux RISC-V](https://archriscv.felixc.at) |
 | powerpc64le | `linux/ppc64le` | [Arch POWER](https://archlinuxpower.org) |
 
